@@ -5,6 +5,8 @@ import { TradingControls } from './TradingControls';
 import { UserProfile } from './UserProfile';
 import { RecentTrades } from './RecentTrades';
 import { TradeNotification } from './TradeNotification';
+import { GamificationPanel } from './GamificationPanel';
+import { NotificationSystem } from './NotificationSystem';
 import { useTradingDatabase } from '@/hooks/useTradingDatabase';
 import { LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -89,6 +91,7 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
         </div>
         
         <div className="flex items-center space-x-3">
+          <NotificationSystem />
           <Button
             variant="outline"
             size="sm"
@@ -139,9 +142,13 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
           />
         </div>
 
-        {/* Recent Trades - Full width on small screens, 2 columns on large */}
-        <div className="lg:col-span-4">
+        {/* Recent Trades & Gamification Panel */}
+        <div className="lg:col-span-2">
           <RecentTrades trades={data.recentTrades} />
+        </div>
+        
+        <div className="lg:col-span-2">
+          <GamificationPanel />
         </div>
       </div>
 
