@@ -2,57 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* TradeArenaX Cyberpunk Gaming Design System 
+All colors MUST be HSL for perfect theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cyberpunk Dark Background System */
+    --background: 220 15% 6%;
+    --foreground: 180 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 8%;
+    --card-foreground: 180 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 180 100% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Neon Cyan Primary (Main accent) */
+    --primary: 180 100% 50%;
+    --primary-foreground: 220 15% 6%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Gaming Secondary (Purple accent) */
+    --secondary: 270 100% 65%;
+    --secondary-foreground: 220 15% 6%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted gaming elements */
+    --muted: 220 15% 12%;
+    --muted-foreground: 180 20% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Neon Green accent */
+    --accent: 120 100% 50%;
+    --accent-foreground: 220 15% 6%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Loss/Danger Red */
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 180 100% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 180 50% 25%;
+    --input: 220 15% 12%;
+    --ring: 180 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Gaming specific colors */
+    --profit: 120 100% 50%;
+    --loss: 0 100% 60%;
+    --neon-glow: 180 100% 50%;
+    --purple-glow: 270 100% 65%;
+    --gold: 45 100% 60%;
+    
+    /* XP and ranking system */
+    --xp-bar: 120 100% 50%;
+    --rank-bronze: 30 100% 60%;
+    --rank-silver: 0 0% 75%;
+    --rank-gold: 45 100% 60%;
+    --rank-diamond: 195 100% 75%;
+    --rank-master: 270 100% 75%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar gaming theme */
+    --sidebar-background: 220 15% 8%;
+    --sidebar-foreground: 180 100% 95%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 220 15% 6%;
+    --sidebar-accent: 220 15% 12%;
+    --sidebar-accent-foreground: 180 100% 95%;
+    --sidebar-border: 180 50% 25%;
+    --sidebar-ring: 180 100% 50%;
   }
 
   .dark {
@@ -100,6 +116,64 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-orbitron;
+  }
+
+  /* Gaming UI Effects */
+  .neon-glow {
+    box-shadow: 0 0 20px hsl(var(--neon-glow) / 0.5);
+  }
+
+  .purple-glow {
+    box-shadow: 0 0 20px hsl(var(--purple-glow) / 0.5);
+  }
+
+  .profit-glow {
+    box-shadow: 0 0 15px hsl(var(--profit) / 0.4);
+  }
+
+  .loss-glow {
+    box-shadow: 0 0 15px hsl(var(--loss) / 0.4);
+  }
+
+  /* HUD Borders */
+  .hud-border {
+    border: 1px solid hsl(var(--border));
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+  }
+
+  /* Gaming Animations */
+  .pulse-neon {
+    animation: pulse-neon 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-neon {
+    from {
+      box-shadow: 0 0 10px hsl(var(--primary) / 0.4);
+    }
+    to {
+      box-shadow: 0 0 25px hsl(var(--primary) / 0.8);
+    }
+  }
+
+  .slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* XP Bar Animation */
+  .xp-fill {
+    transition: width 0.5s ease-out;
+    background: linear-gradient(90deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 100%);
   }
 }

@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'orbitron': ['Orbitron', 'monospace'],
+				'audiowide': ['Audiowide', 'monospace'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +65,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Gaming-specific colors
+				profit: 'hsl(var(--profit))',
+				loss: 'hsl(var(--loss))',
+				'neon-glow': 'hsl(var(--neon-glow))',
+				'purple-glow': 'hsl(var(--purple-glow))',
+				gold: 'hsl(var(--gold))',
+				'xp-bar': 'hsl(var(--xp-bar))',
+				'rank-bronze': 'hsl(var(--rank-bronze))',
+				'rank-silver': 'hsl(var(--rank-silver))',
+				'rank-gold': 'hsl(var(--rank-gold))',
+				'rank-diamond': 'hsl(var(--rank-diamond))',
+				'rank-master': 'hsl(var(--rank-master))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
