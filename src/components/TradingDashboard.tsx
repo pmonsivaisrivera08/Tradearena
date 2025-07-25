@@ -5,7 +5,7 @@ import { TradingControls } from './TradingControls';
 import { UserProfile } from './UserProfile';
 import { RecentTrades } from './RecentTrades';
 import { TradeNotification } from './TradeNotification';
-import { useTrading } from '@/hooks/useTrading';
+import { useTradingDatabase } from '@/hooks/useTradingDatabase';
 import { LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -14,12 +14,25 @@ interface TradingDashboardProps {
 }
 
 export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
-  const { data, openPosition, closePosition, getCurrentRank, getNextRank } = useTrading();
+  const { data, loading, openPosition, closePosition, getCurrentRank, getNextRank } = useTradingDatabase();
   const [notification, setNotification] = useState<any>(null);
   const { toast } = useToast();
 
-  const handleBuy = () => {
-    const success = openPosition('buy');
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="text-2xl font-audiowide text-primary">
+            TRADE<span className="text-accent">ARENA</span><span className="text-secondary">X</span>
+          </div>
+          <div className="animate-pulse text-muted-foreground">Cargando datos del trader...</div>
+        </div>
+      </div>
+    );
+  }
+
+  const handleBuy = async () => {
+    const success = await openPosition('buy');
     if (success) {
       toast({
         title: "Posición Abierta",
@@ -34,8 +47,8 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
     }
   };
 
-  const handleSell = () => {
-    const success = openPosition('sell');
+  const handleSell = async () => {
+    const success = await openPosition('sell');
     if (success) {
       toast({
         title: "Posición Abierta", 
@@ -50,8 +63,8 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
     }
   };
 
-  const handleClosePosition = () => {
-    const result = closePosition();
+  const handleClosePosition = async () => {
+    const result = await closePosition();
     if (result) {
       setNotification(result);
       toast({

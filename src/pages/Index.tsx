@@ -1,35 +1,36 @@
-import { useState, useEffect } from 'react';
-import { WelcomeScreen } from '@/components/WelcomeScreen';
+import { useAuth } from '@/hooks/useAuth';
+import { AuthScreen } from '@/components/AuthScreen';
 import { TradingDashboard } from '@/components/TradingDashboard';
-import { useTrading } from '@/hooks/useTrading';
 
 const Index = () => {
-  const [gameState, setGameState] = useState<'welcome' | 'trading'>('welcome');
-  const { data, setUsername } = useTrading();
+  const { user, loading, signOut } = useAuth();
 
-  // Check if user is already logged in
-  useEffect(() => {
-    if (data.user.username) {
-      setGameState('trading');
-    }
-  }, [data.user.username]);
-
-  const handleStart = (username: string) => {
-    setUsername(username);
-    setGameState('trading');
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('tradeArenaX');
-    setGameState('welcome');
-    window.location.reload(); // Force reload to reset state
-  };
-
-  if (gameState === 'welcome') {
-    return <WelcomeScreen onStart={handleStart} />;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="text-2xl font-audiowide text-primary">
+            TRADE<span className="text-accent">ARENA</span><span className="text-secondary">X</span>
+          </div>
+          <div className="animate-pulse text-muted-foreground">Cargando...</div>
+        </div>
+      </div>
+    );
   }
 
-  return <TradingDashboard onLogout={handleLogout} />;
+  const handleLogout = async () => {
+    await signOut();
+  };
+
+  return (
+    <>
+      {!user ? (
+        <AuthScreen />
+      ) : (
+        <TradingDashboard onLogout={handleLogout} />
+      )}
+    </>
+  );
 };
 
 export default Index;
