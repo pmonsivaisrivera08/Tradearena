@@ -14,7 +14,215 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      achievements: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          icon: string | null
+          id: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+          xp_reward: number
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          icon?: string | null
+          id?: string
+          name: string
+          requirement_type: string
+          requirement_value: number
+          xp_reward?: number
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          icon?: string | null
+          id?: string
+          name?: string
+          requirement_type?: string
+          requirement_value?: number
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      daily_missions: {
+        Row: {
+          created_at: string
+          current_progress: number
+          description: string
+          id: string
+          is_completed: boolean
+          mission_date: string
+          mission_type: string
+          target_value: number
+          user_id: string
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string
+          current_progress?: number
+          description: string
+          id?: string
+          is_completed?: boolean
+          mission_date?: string
+          mission_type: string
+          target_value: number
+          user_id: string
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string
+          current_progress?: number
+          description?: string
+          id?: string
+          is_completed?: boolean
+          mission_date?: string
+          mission_type?: string
+          target_value?: number
+          user_id?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      trades: {
+        Row: {
+          created_at: string
+          entry_price: number
+          entry_time: string
+          exit_price: number | null
+          exit_time: string | null
+          id: string
+          is_active: boolean
+          profit_percentage: number | null
+          symbol: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          entry_price: number
+          entry_time?: string
+          exit_price?: number | null
+          exit_time?: string | null
+          id?: string
+          is_active?: boolean
+          profit_percentage?: number | null
+          symbol?: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          entry_price?: number
+          entry_time?: string
+          exit_price?: number | null
+          exit_time?: string | null
+          id?: string
+          is_active?: boolean
+          profit_percentage?: number | null
+          symbol?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_stats: {
+        Row: {
+          created_at: string
+          current_balance: number
+          id: string
+          level: number
+          profitable_trades: number
+          rank: string
+          total_trades: number
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          created_at?: string
+          current_balance?: number
+          id?: string
+          level?: number
+          profitable_trades?: number
+          rank?: string
+          total_trades?: number
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          created_at?: string
+          current_balance?: number
+          id?: string
+          level?: number
+          profitable_trades?: number
+          rank?: string
+          total_trades?: number
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
