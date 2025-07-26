@@ -7,7 +7,11 @@ import { RecentTrades } from './RecentTrades';
 import { TradeNotification } from './TradeNotification';
 import { GamificationPanel } from './GamificationPanel';
 import { NotificationSystem } from './NotificationSystem';
+import { TechnicalIndicators } from './TechnicalIndicators';
+import { TradingSignals } from './TradingSignals';
+import { MarketAnalysis } from './MarketAnalysis';
 import { useTradingDatabase } from '@/hooks/useTradingDatabase';
+import { generateTradingSignals, calculateRSI, calculateMACD, calculateBollingerBands, type TradingSignal } from '@/lib/technicalIndicators';
 import { LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -18,6 +22,7 @@ interface TradingDashboardProps {
 export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
   const { data, loading, openPosition, closePosition, getCurrentRank, getNextRank } = useTradingDatabase();
   const [notification, setNotification] = useState<any>(null);
+  const [currentSignal, setCurrentSignal] = useState<TradingSignal | null>(null);
   const { toast } = useToast();
 
   if (loading) {
@@ -75,6 +80,19 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
         variant: result.isProfit ? "default" : "destructive"
       });
     }
+  };
+
+  const handleSignalAction = async (signal: TradingSignal) => {
+    if (signal.type === 'buy') {
+      await handleBuy();
+    } else if (signal.type === 'sell') {
+      await handleSell();
+    }
+    
+    toast({
+      title: "Señal Ejecutada",
+      description: `Acción de ${signal.type.toUpperCase()} ejecutada basada en análisis técnico`,
+    });
   };
 
   return (
@@ -140,6 +158,25 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
             onClosePosition={handleClosePosition}
             currentPrice={data.currentPrice}
           />
+        </div>
+
+        {/* Technical Analysis - Full Width */}
+        <div className="lg:col-span-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <TechnicalIndicators 
+              priceHistory={data.priceHistory.map(p => ({ price: p.price, timestamp: p.time }))}
+              currentPrice={data.currentPrice}
+              signal={currentSignal}
+            />
+            <TradingSignals 
+              priceHistory={data.priceHistory.map(p => ({ price: p.price, timestamp: p.time }))}
+              onSignalAction={handleSignalAction}
+            />
+            <MarketAnalysis 
+              priceHistory={data.priceHistory.map(p => ({ price: p.price, timestamp: p.time }))}
+              currentPrice={data.currentPrice}
+            />
+          </div>
         </div>
 
         {/* Recent Trades & Gamification Panel */}
