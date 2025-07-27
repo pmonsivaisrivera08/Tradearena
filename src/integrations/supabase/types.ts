@@ -50,6 +50,30 @@ export type Database = {
         }
         Relationships: []
       }
+      chat_messages: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          message_type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          message_type?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          message_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       daily_missions: {
         Row: {
           created_at: string
@@ -113,6 +137,122 @@ export type Database = {
         }
         Relationships: []
       }
+      social_rankings: {
+        Row: {
+          created_at: string
+          followers_count: number
+          following_count: number
+          id: string
+          social_score: number
+          strategies_shared: number
+          total_likes_received: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          followers_count?: number
+          following_count?: number
+          id?: string
+          social_score?: number
+          strategies_shared?: number
+          total_likes_received?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          followers_count?: number
+          following_count?: number
+          id?: string
+          social_score?: number
+          strategies_shared?: number
+          total_likes_received?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      strategy_likes: {
+        Row: {
+          created_at: string
+          id: string
+          strategy_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          strategy_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          strategy_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "strategy_likes_strategy_id_fkey"
+            columns: ["strategy_id"]
+            isOneToOne: false
+            referencedRelation: "trading_strategies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trade_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          id: string
+          is_read: boolean
+          target_user_id: string
+          trade_data: Json
+          user_id: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          target_user_id: string
+          trade_data: Json
+          user_id: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          target_user_id?: string
+          trade_data?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
+      trader_follows: {
+        Row: {
+          created_at: string
+          followed_id: string
+          follower_id: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          followed_id: string
+          follower_id: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          followed_id?: string
+          follower_id?: string
+          id?: string
+        }
+        Relationships: []
+      }
       trades: {
         Row: {
           created_at: string
@@ -152,6 +292,48 @@ export type Database = {
           symbol?: string
           type?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      trading_strategies: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          is_public: boolean
+          likes_count: number
+          strategy_data: Json
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+          views_count: number
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          is_public?: boolean
+          likes_count?: number
+          strategy_data: Json
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+          views_count?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          is_public?: boolean
+          likes_count?: number
+          strategy_data?: Json
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+          views_count?: number
         }
         Relationships: []
       }
