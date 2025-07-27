@@ -10,6 +10,7 @@ import { NotificationSystem } from './NotificationSystem';
 import { TechnicalIndicators } from './TechnicalIndicators';
 import { TradingSignals } from './TradingSignals';
 import { MarketAnalysis } from './MarketAnalysis';
+import { SocialTradingHub } from './SocialTradingHub';
 import { useTradingDatabase } from '@/hooks/useTradingDatabase';
 import { generateTradingSignals, calculateRSI, calculateMACD, calculateBollingerBands, type TradingSignal } from '@/lib/technicalIndicators';
 import { LogOut, Settings } from 'lucide-react';
@@ -179,13 +180,16 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
           </div>
         </div>
 
-        {/* Recent Trades & Gamification Panel */}
+        {/* Social Trading & Gamification */}
         <div className="lg:col-span-2">
-          <RecentTrades trades={data.recentTrades} />
+          <SocialTradingHub />
         </div>
         
         <div className="lg:col-span-2">
-          <GamificationPanel />
+          <div className="grid grid-rows-2 gap-6 h-full">
+            <RecentTrades trades={data.recentTrades} />
+            <GamificationPanel />
+          </div>
         </div>
       </div>
 
