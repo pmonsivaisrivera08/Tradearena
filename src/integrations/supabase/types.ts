@@ -113,6 +113,114 @@ export type Database = {
         }
         Relationships: []
       }
+      performance_metrics: {
+        Row: {
+          avg_trade_duration: number
+          best_trade: number
+          created_at: string
+          daily_return: number
+          id: string
+          max_drawdown: number
+          monthly_return: number
+          period_end: string
+          period_start: string
+          risk_score: number
+          sharpe_ratio: number
+          total_pnl: number
+          total_pnl_percentage: number
+          total_portfolio_value: number
+          updated_at: string
+          user_id: string
+          weekly_return: number
+          win_rate: number
+          worst_trade: number
+          yearly_return: number
+        }
+        Insert: {
+          avg_trade_duration?: number
+          best_trade?: number
+          created_at?: string
+          daily_return?: number
+          id?: string
+          max_drawdown?: number
+          monthly_return?: number
+          period_end?: string
+          period_start?: string
+          risk_score?: number
+          sharpe_ratio?: number
+          total_pnl?: number
+          total_pnl_percentage?: number
+          total_portfolio_value?: number
+          updated_at?: string
+          user_id: string
+          weekly_return?: number
+          win_rate?: number
+          worst_trade?: number
+          yearly_return?: number
+        }
+        Update: {
+          avg_trade_duration?: number
+          best_trade?: number
+          created_at?: string
+          daily_return?: number
+          id?: string
+          max_drawdown?: number
+          monthly_return?: number
+          period_end?: string
+          period_start?: string
+          risk_score?: number
+          sharpe_ratio?: number
+          total_pnl?: number
+          total_pnl_percentage?: number
+          total_portfolio_value?: number
+          updated_at?: string
+          user_id?: string
+          weekly_return?: number
+          win_rate?: number
+          worst_trade?: number
+          yearly_return?: number
+        }
+        Relationships: []
+      }
+      portfolio_positions: {
+        Row: {
+          average_price: number
+          created_at: string
+          current_value: number
+          id: string
+          quantity: number
+          symbol: string
+          total_invested: number
+          unrealized_pnl: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          average_price?: number
+          created_at?: string
+          current_value?: number
+          id?: string
+          quantity?: number
+          symbol: string
+          total_invested?: number
+          unrealized_pnl?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          average_price?: number
+          created_at?: string
+          current_value?: number
+          id?: string
+          quantity?: number
+          symbol?: string
+          total_invested?: number
+          unrealized_pnl?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -134,6 +242,39 @@ export type Database = {
           updated_at?: string
           user_id?: string
           username?: string
+        }
+        Relationships: []
+      }
+      risk_alerts: {
+        Row: {
+          alert_type: string
+          created_at: string
+          data: Json
+          id: string
+          is_read: boolean
+          message: string
+          severity: string
+          user_id: string
+        }
+        Insert: {
+          alert_type: string
+          created_at?: string
+          data?: Json
+          id?: string
+          is_read?: boolean
+          message: string
+          severity?: string
+          user_id: string
+        }
+        Update: {
+          alert_type?: string
+          created_at?: string
+          data?: Json
+          id?: string
+          is_read?: boolean
+          message?: string
+          severity?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -295,6 +436,51 @@ export type Database = {
         }
         Relationships: []
       }
+      trading_reports: {
+        Row: {
+          created_at: string
+          fees_paid: number
+          id: string
+          period_end: string
+          period_start: string
+          profitable_trades: number
+          report_data: Json
+          report_type: string
+          total_pnl: number
+          total_trades: number
+          total_volume: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fees_paid?: number
+          id?: string
+          period_end: string
+          period_start: string
+          profitable_trades?: number
+          report_data?: Json
+          report_type?: string
+          total_pnl?: number
+          total_trades?: number
+          total_volume?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          fees_paid?: number
+          id?: string
+          period_end?: string
+          period_start?: string
+          profitable_trades?: number
+          report_data?: Json
+          report_type?: string
+          total_pnl?: number
+          total_trades?: number
+          total_volume?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       trading_strategies: {
         Row: {
           created_at: string
@@ -334,6 +520,33 @@ export type Database = {
           updated_at?: string
           user_id?: string
           views_count?: number
+        }
+        Relationships: []
+      }
+      trading_symbols: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          symbol: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          symbol: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          symbol?: string
         }
         Relationships: []
       }
@@ -410,7 +623,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_performance_metrics: {
+        Args: { user_id_param: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

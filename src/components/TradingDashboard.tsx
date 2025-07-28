@@ -11,6 +11,7 @@ import { TechnicalIndicators } from './TechnicalIndicators';
 import { TradingSignals } from './TradingSignals';
 import { MarketAnalysis } from './MarketAnalysis';
 import { SocialTradingHub } from './SocialTradingHub';
+import { PortfolioHub } from './PortfolioHub';
 import { useTradingDatabase } from '@/hooks/useTradingDatabase';
 import { generateTradingSignals, calculateRSI, calculateMACD, calculateBollingerBands, type TradingSignal } from '@/lib/technicalIndicators';
 import { LogOut, Settings } from 'lucide-react';
@@ -178,6 +179,11 @@ export const TradingDashboard = ({ onLogout }: TradingDashboardProps) => {
               currentPrice={data.currentPrice}
             />
           </div>
+        </div>
+
+        {/* Portfolio Management - Full Width */}
+        <div className="lg:col-span-4">
+          <PortfolioHub />
         </div>
 
         {/* Social Trading & Gamification */}
